@@ -1,6 +1,5 @@
 package yirath.main;
 
-import yirath.state.CreditsState;
 import yirath.state.MenuState;
 
 import com.shc.silenceengine.core.Display;
@@ -12,19 +11,16 @@ import com.shc.silenceengine.utils.Logger;
 public class Yirath extends Game {
 	
 	public static MenuState menuState = new MenuState();
-	public static CreditsState creditsState = new CreditsState();
 
 	@Override
 	public void init() {
-		
-		
 		
 		Display.setTitle("Yirath - SilenceEngine v" + SilenceEngine.getVersion());
 		// Display.setIcon();
 		Display.setSize(1280, 720);
 		Display.centerOnScreen();
-		
-		Yirath.setGameState(creditsState);
+		Display.setVSync(false);
+		Yirath.setGameState(menuState);
 	}
 
 	@Override
@@ -35,12 +31,13 @@ public class Yirath extends Game {
 
 	@Override
 	public void update(float delta) {
-		// TODO 
+		Display.setTitle("Yirath - SilenceEngine v" + SilenceEngine.getVersion() + " FPS: " + Game.getFPS() + " | UPS: " + Game.getUPS() + " | RC: " + SilenceEngine.graphics.renderCallsPerFrame);
 	}
 
 	@Override
 	public void render(float delta, Batcher batcher) {
 		// TODO 
+		
 	}
 
 	@Override
