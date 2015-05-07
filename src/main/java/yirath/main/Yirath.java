@@ -19,6 +19,7 @@ public class Yirath extends Game {
 		// Display.setIcon();
 		Display.setSize(1280, 720);
 		Display.centerOnScreen();
+		Display.setResizable(false);
 		Display.setVSync(false);
 		Yirath.setGameState(menuState);
 	}
@@ -31,7 +32,7 @@ public class Yirath extends Game {
 
 	@Override
 	public void update(float delta) {
-		Display.setTitle("Yirath - SilenceEngine v" + SilenceEngine.getVersion() + " FPS: " + Game.getFPS() + " | UPS: " + Game.getUPS() + " | RC: " + SilenceEngine.graphics.renderCallsPerFrame);
+		Display.setTitle("Yirath - SilenceEngine v" + SilenceEngine.getVersion() + " | FPS: " + Game.getFPS() + " | UPS: " + Game.getUPS() + " | RC: " + SilenceEngine.graphics.renderCallsPerFrame);
 	}
 
 	@Override

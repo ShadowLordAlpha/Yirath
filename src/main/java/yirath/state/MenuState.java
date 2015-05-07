@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import org.lwjgl.glfw.GLFW;
 
+import com.shc.silenceengine.audio.Sound;
 import com.shc.silenceengine.core.Display;
 import com.shc.silenceengine.core.Game;
 import com.shc.silenceengine.core.GameState;
@@ -23,6 +24,7 @@ public class MenuState extends GameState {
 	
 	private OrthoCam camera = new OrthoCam();
 	private TrueTypeFont guiFont;
+	private TrueTypeFont titleFont;
 	private Texture menuBackground;
 	private Rectangle rect;
 	private IKeyCallback keyCallback = new IKeyCallback() {
@@ -52,6 +54,7 @@ public class MenuState extends GameState {
 						menuID = button;
 						if(button == 0) {
 							// TODO new game
+							System.out.println("Load New Game");
 						}
 					}
 					break;
@@ -83,26 +86,45 @@ public class MenuState extends GameState {
 	public void onEnter() {
 		// TODO Load images needed for first screen
 		camera.initProjection(Display.getWidth(), Display.getHeight());
-		guiFont = new TrueTypeFont("Times New Roman", TrueTypeFont.STYLE_NORMAL, 18);
+		guiFont = new TrueTypeFont("Times New Roman", TrueTypeFont.STYLE_NORMAL, 20);
+		titleFont = new TrueTypeFont("Times New Roman", TrueTypeFont.STYLE_ITALIC | TrueTypeFont.STYLE_BOLD, 48);
 		try {
 			menuBackground = Texture.fromInputStream(new FileInputStream("src/main/resources/Sprite/menu_image.png"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		Sound background = null;
+		try {
+			background = new Sound(new FileInputStream("src/main/resources/BGM/TSFH/Armada.wav"), "wav");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		float size = Math.min(Display.getWidth(), Display.getHeight());
 		rect = new Rectangle(size, size);
 		rect.setPosition(Display.getWidth() - size, Display.getHeight() - size);
 		Display.getWindow().setKeyCallback(keyCallback);
+		background.setLooping(true);
+		background.setVolume(0.25f);
+		background.play();
 	}
 
 	private float angle = 0;
 	private int menuID = 0;
 	private int button = 0;
+	private float multiplier = -10;
 	
 	@Override
 	public void update(float delta) {
-		angle += -5.0f * delta;
-		rect.rotate(-5.0f * delta);
+		if(angle < 120 * -10) {
+			multiplier = Math.min(10, (multiplier + (1f * delta)));
+		} else if(angle > 120 * 10) {
+			multiplier = Math.max(-10, (multiplier - (1f * delta)));
+		}
+		angle += delta * multiplier;
+		rect.rotate(delta * multiplier);
 	}
 
 	@Override
@@ -111,7 +133,7 @@ public class MenuState extends GameState {
 		camera.apply();
 		
 		Graphics2D g2d = Game.getGraphics2D();
-		
+		//g2d.drawPolygon(rect);
 		g2d.drawTexturedPolygon(menuBackground, rect);
 		drawGui(batcher);
 	}
@@ -120,6 +142,7 @@ public class MenuState extends GameState {
 		
 		switch(menuID) {
 		case 0:
+			titleFont.drawString(batcher, "Yirath", Display.getWidth() / 6, Display.getHeight() / 2 - titleFont.getHeight());
 			float alignBottom = Display.getHeight() - 100 - 4*guiFont.getHeight();
 			guiFont.drawString(batcher, "NEW", 75, alignBottom + 0*guiFont.getHeight(), (button == 0) ? Color.WHITE : Color.GRAY);
 			guiFont.drawString(batcher, "LOAD", 75, alignBottom + 1*guiFont.getHeight(), (button == 1) ? Color.WHITE : Color.GRAY);
