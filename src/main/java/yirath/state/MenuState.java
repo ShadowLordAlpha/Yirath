@@ -27,6 +27,7 @@ public class MenuState extends GameState {
 	private TrueTypeFont titleFont;
 	private Texture menuBackground;
 	private Rectangle rect;
+	private Sound background = null;
 	private IKeyCallback keyCallback = new IKeyCallback() {
 
 		@Override
@@ -94,7 +95,6 @@ public class MenuState extends GameState {
 			e.printStackTrace();
 		}
 		
-		Sound background = null;
 		try {
 			background = new Sound(new FileInputStream("src/main/resources/BGM/TSFH/Armada.wav"), "wav");
 		} catch (FileNotFoundException e) {
@@ -135,14 +135,10 @@ public class MenuState extends GameState {
 		Graphics2D g2d = Game.getGraphics2D();
 		//g2d.drawPolygon(rect);
 		g2d.drawTexturedPolygon(menuBackground, rect);
-		drawGui(batcher);
-	}
-	
-	private void drawGui(Batcher batcher) {
-		
+
 		switch(menuID) {
 		case 0:
-			titleFont.drawString(batcher, "Yirath", Display.getWidth() / 6, Display.getHeight() / 2 - titleFont.getHeight());
+			titleFont.drawString(batcher, "Yirath", Display.getWidth() / 6, Display.getHeight() / 2 - titleFont.getHeight(), Color.GOLDEN_ROD);
 			float alignBottom = Display.getHeight() - 100 - 4*guiFont.getHeight();
 			guiFont.drawString(batcher, "NEW", 75, alignBottom + 0*guiFont.getHeight(), (button == 0) ? Color.WHITE : Color.GRAY);
 			guiFont.drawString(batcher, "LOAD", 75, alignBottom + 1*guiFont.getHeight(), (button == 1) ? Color.WHITE : Color.GRAY);
@@ -158,11 +154,13 @@ public class MenuState extends GameState {
 			break;
 		case 3:
 			guiFont.drawString(batcher, "WIP - NOT YET IN GAME!", 0, 0, Color.RED);
+			
+			float numberOfLines = titleFont.getHeight() / Display.getHeight();
+			
 			break;
 		case 4:
 			Game.end();
 		}
-		
 	}
 
 	@Override
@@ -179,5 +177,7 @@ public class MenuState extends GameState {
 	public void onLeave() {
 		Display.getWindow().setKeyCallback(null);
 		guiFont.dispose();
+		titleFont.dispose();
+		background.dispose();
 	}
 }
