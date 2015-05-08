@@ -6,14 +6,14 @@ A 3D Game made using SilenceEngine.
 - [x] Core Menu State.
 - [x] Basic Navigation using keys.
 - [ ] Basic Navigation using Mouse.
-- [ ] Music During Menu Screen. (Partial)
 - [ ] Credits Portion of the Menu State.
 - [ ] Options Portion of the Menu State.
 - [ ] Load Game Portion of the Menu State.
 - [x] Exit Portion of the Menu State.
 
 ### Music
-- [ ] 
+- [ ] Get good music that is free to use
+- [ ] Replace All Placeholders
 
 ### Models
 #### Characters

@@ -1,6 +1,7 @@
 package yirath.main;
 
 import yirath.state.MenuState;
+import yirath.state.PlayState;
 
 import com.shc.silenceengine.core.Display;
 import com.shc.silenceengine.core.Game;
@@ -11,6 +12,7 @@ import com.shc.silenceengine.utils.Logger;
 public class Yirath extends Game {
 	
 	public static MenuState menuState = new MenuState();
+	public static PlayState playState = new PlayState();
 
 	@Override
 	public void init() {
@@ -26,8 +28,7 @@ public class Yirath extends Game {
 
 	@Override
 	public void resize() {
-		// TODO 
-		Logger.log("Display Resized");
+		
 	}
 
 	@Override

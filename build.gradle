@@ -1,5 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin 'application'
+
+mainClassName = 'Yirath.main.Start'
 
 // Dependencies for the project are stored in the libs directory
 dependencies {

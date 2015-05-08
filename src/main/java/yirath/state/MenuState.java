@@ -5,11 +5,14 @@ import java.io.FileNotFoundException;
 
 import org.lwjgl.glfw.GLFW;
 
+import yirath.main.Yirath;
+
 import com.shc.silenceengine.audio.Sound;
 import com.shc.silenceengine.core.Display;
 import com.shc.silenceengine.core.Game;
 import com.shc.silenceengine.core.GameState;
 import com.shc.silenceengine.core.glfw.Window;
+import com.shc.silenceengine.core.glfw.callbacks.ICursorPositionCallback;
 import com.shc.silenceengine.core.glfw.callbacks.IKeyCallback;
 import com.shc.silenceengine.graphics.Batcher;
 import com.shc.silenceengine.graphics.Color;
@@ -18,6 +21,7 @@ import com.shc.silenceengine.graphics.TrueTypeFont;
 import com.shc.silenceengine.graphics.cameras.OrthoCam;
 import com.shc.silenceengine.graphics.opengl.Texture;
 import com.shc.silenceengine.input.Keyboard;
+import com.shc.silenceengine.math.geom2d.Circle;
 import com.shc.silenceengine.math.geom2d.Rectangle;
 
 public class MenuState extends GameState {
@@ -28,8 +32,20 @@ public class MenuState extends GameState {
 	private Texture menuBackground;
 	private Rectangle rect;
 	private Sound background = null;
+	//private Circle circle = new Circle(1);
+	
+	private ICursorPositionCallback mouseCallback = new ICursorPositionCallback() {
+
+		@Override
+		public void invoke(Window window, double xPos, double yPos) {
+			//circle.setPosition((float) xPos, (float) yPos);
+		}
+	};
+	
 	private IKeyCallback keyCallback = new IKeyCallback() {
 
+		private boolean hasShifted = false;
+		
 		@Override
 		public void invoke(Window window, int key, int scanCode, int action, int mods) {
 			if(Display.getWindow() == window) {
@@ -41,6 +57,7 @@ public class MenuState extends GameState {
 						if(button < 0) {
 							button = 4;
 						}
+						hasShifted = true;
 					}
 					
 					if(key == Keyboard.KEY_DOWN && (action == GLFW.GLFW_RELEASE || action == GLFW.GLFW_REPEAT)) {
@@ -49,12 +66,17 @@ public class MenuState extends GameState {
 						if(button > 4) {
 							button = 0;
 						}
+						hasShifted = true;
 					}
 					
-					if(key == Keyboard.KEY_ENTER && action == GLFW.GLFW_RELEASE) {
+					if(key == Keyboard.KEY_ENTER && action == GLFW.GLFW_PRESS) {
+						hasShifted = false;
+					}
+					
+					if(key == Keyboard.KEY_ENTER && action == GLFW.GLFW_RELEASE && !hasShifted) {
 						menuID = button;
 						if(button == 0) {
-							// TODO new game
+							Game.setGameState(Yirath.playState);
 							System.out.println("Load New Game");
 						}
 					}
@@ -89,6 +111,7 @@ public class MenuState extends GameState {
 		camera.initProjection(Display.getWidth(), Display.getHeight());
 		guiFont = new TrueTypeFont("Times New Roman", TrueTypeFont.STYLE_NORMAL, 20);
 		titleFont = new TrueTypeFont("Times New Roman", TrueTypeFont.STYLE_ITALIC | TrueTypeFont.STYLE_BOLD, 48);
+		
 		try {
 			menuBackground = Texture.fromInputStream(new FileInputStream("src/main/resources/Sprite/menu_image.png"));
 		} catch (FileNotFoundException e) {
@@ -106,6 +129,7 @@ public class MenuState extends GameState {
 		rect = new Rectangle(size, size);
 		rect.setPosition(Display.getWidth() - size, Display.getHeight() - size);
 		Display.getWindow().setKeyCallback(keyCallback);
+		Display.getWindow().setCursorPositionCallback(mouseCallback);
 		background.setLooping(true);
 		background.setVolume(0.25f);
 		background.play();
@@ -135,7 +159,7 @@ public class MenuState extends GameState {
 		Graphics2D g2d = Game.getGraphics2D();
 		//g2d.drawPolygon(rect);
 		g2d.drawTexturedPolygon(menuBackground, rect);
-
+		//g2d.drawPolygon(circle);
 		switch(menuID) {
 		case 0:
 			titleFont.drawString(batcher, "Yirath", Display.getWidth() / 6, Display.getHeight() / 2 - titleFont.getHeight(), Color.GOLDEN_ROD);
