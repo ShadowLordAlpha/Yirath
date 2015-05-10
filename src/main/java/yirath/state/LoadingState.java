@@ -3,7 +3,9 @@ package yirath.state;
 import com.shc.silenceengine.core.GameState;
 import com.shc.silenceengine.graphics.Batcher;
 
-public class LoadingState extends GameState {
+public class LoadingState extends GameState implements Runnable {
+	
+	private boolean done = false;
 
 	@Override
 	public void onEnter() {
@@ -23,5 +25,12 @@ public class LoadingState extends GameState {
 	@Override
 	public void onLeave() {
 		
+	}
+
+	@Override
+	public void run() {
+		
+		
+		done = true;
 	}
 }
