@@ -1,30 +1,37 @@
 package yirath.main;
 
+import yirath.state.MainMenuState;
+
+import com.shc.silenceengine.core.Display;
 import com.shc.silenceengine.core.Game;
+import com.shc.silenceengine.core.SilenceEngine;
 
 public class Yirath extends Game {
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		super.init();
+		
+		
+
+		Display.setTitle("Yirath - SilenceEngine v" + SilenceEngine.getVersion());
+		Display.setSize(1280, 720);
+		Display.centerOnScreen();
+		
+		Yirath.setGameState(new MainMenuState());
 	}
 
 	@Override
 	public void resize() {
-		// TODO Auto-generated method stub
-		super.resize();
+
 	}
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
-		super.update(delta);
+		Display.setTitle("Yirath - SilenceEngine v" + SilenceEngine.getVersion() + " | FPS: " + Game.getFPS());
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		super.dispose();
+
 	}
 }
