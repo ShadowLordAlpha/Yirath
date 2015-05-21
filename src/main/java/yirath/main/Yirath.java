@@ -10,8 +10,6 @@ public class Yirath extends Game {
 
 	@Override
 	public void init() {
-		
-		
 
 		Display.setTitle("Yirath - SilenceEngine v" + SilenceEngine.getVersion());
 		Display.setSize(1280, 720);

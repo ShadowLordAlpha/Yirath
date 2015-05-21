@@ -43,7 +43,7 @@ public class PlayState extends GameState {
 			scene.addChild(entity = new ModelEntity(model, new Cuboid(Vector3.ZERO, 1, 1, 1)));
 
 			// Add some lights, so that we can see the model
-			scene.addComponent(new PointLight(new Vector3(1, 800, 80), Color.GOLDEN_ROD, 10, 1000));
+			scene.addComponent(new PointLight(new Vector3(1, 800, 80), Color.WHITE, 1, 1000));
 			scene.addComponent(new DirectionalLight(new Vector3(0, -1, 0), Color.AZURE));
 			scene.addComponent(cameraLight = new PointLight(cam.getPosition(), Color.WHITE));
 		}
