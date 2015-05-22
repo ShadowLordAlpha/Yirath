@@ -1,10 +1,13 @@
 package yirath.main;
 
+import org.lwjgl.opengl.GL11;
+
 import yirath.state.MainMenuState;
 
 import com.shc.silenceengine.core.Display;
 import com.shc.silenceengine.core.Game;
 import com.shc.silenceengine.core.SilenceEngine;
+import com.shc.silenceengine.graphics.opengl.GL3Context;
 
 public class Yirath extends Game {
 

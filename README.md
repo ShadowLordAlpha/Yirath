@@ -5,6 +5,7 @@ A 3D Game made using SilenceEngine.
 ### States
 #### Main Menu
 The main menu contains 6 different buttons. These buttons are . . .
+- [x] Planned: The menu layout planned and placeholder created/inserted
 - [ ] Continue: Continue the most recent save
 - [ ] New Game: Start a brand new game
 - [ ] Load Game: Load up a saved game
