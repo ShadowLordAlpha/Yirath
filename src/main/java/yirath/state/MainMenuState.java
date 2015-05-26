@@ -3,7 +3,9 @@ package yirath.state;
 import com.shc.silenceengine.core.Display;
 import com.shc.silenceengine.core.Game;
 import com.shc.silenceengine.core.GameState;
+import com.shc.silenceengine.core.SilenceEngine;
 import com.shc.silenceengine.graphics.Batcher;
+import com.shc.silenceengine.graphics.Color;
 import com.shc.silenceengine.graphics.opengl.Texture;
 import com.shc.silenceengine.input.Keyboard;
 import com.shc.silenceengine.utils.Logger;
@@ -14,6 +16,7 @@ public class MainMenuState extends GameState {
 
 	@Override
 	public void onEnter() {
+		SilenceEngine.graphics.setClearColor(Color.GRAY);
 		overlay = Texture.fromResource("Data/Textures/menu_overlay.png");
 	}
 

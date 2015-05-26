@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<terrain>
+	<node>
+		<matrix x="0" y="0" z="0" dx="0" dy="0" dz="0" sx="1" sy="1" sz="1"/>
+		
+	</node>
+</terrain>
